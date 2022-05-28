@@ -1,0 +1,18 @@
+# Stage 1 (Download build)
+FROM --platform=linux/arm64 golang:1.17-alpine AS downloader
+
+ARG VERSION
+WORKDIR /app/
+RUN wget https://github.com/pterodactyl/wings/releases/download/v${VERSION}/wings_linux_arm64
+COPY ./wings_linux_arm64 /app/wings
+RUN echo "ID=\"distroless\"" > /etc/os-release
+
+# Stage 2 (Final)
+FROM gcr.io/distroless/static:latest
+COPY --from=downloader /etc/os-release /etc/os-release
+
+COPY --from=downloader /app/wings /usr/bin/
+CMD [ "/usr/bin/wings", "--config", "/etc/pterodactyl/config.yml" ]
+
+EXPOSE 8080
+EXPOSE 2022

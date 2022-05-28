@@ -3,7 +3,7 @@ version: '3.8'
 services:
   wings:
     build:
-      dockerfile: ./Dockerfile.arm64
+      dockerfile: ./Dockerfile.run-arm64
       args:
           VERSION: ${WINGS_VERSION}
     image: wings-arm64

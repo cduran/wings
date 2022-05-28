@@ -26,4 +26,3 @@ CMD [ "/usr/bin/wings", "--config", "/etc/pterodactyl/config.yml" ]
 
 EXPOSE 8080
 EXPOSE 2022
-EXPOSE 443
